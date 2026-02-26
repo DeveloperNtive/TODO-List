@@ -1,0 +1,17 @@
+<ion-content>
+  <ion-list>
+    @for(task of tasks(); track task.id) {
+    <ion-card clickable [routerLink]="['/task-detail', task.id]" router-direction="forward">
+      <ion-card-header>
+        <ion-card-title>{{ task.title }}</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        Description: {{ task.description }} <br>
+        Status: {{ task.status }} <br>
+        Created: {{ task.created_at | date }}
+      </ion-card-content>
+    </ion-card>
+    }
+  </ion-list>
+</ion-content>
