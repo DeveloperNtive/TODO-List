@@ -40,26 +40,26 @@ export const taskReducer = createReducer(
 		selectedTask: state.tasks.find(t => t.id === id) || null
 	})),
 
-	on(addOneTask, (state, action) => ({
+	on(addOneTask, (state, { task }) => ({
 		...state,
-		tasks: [...state.tasks, action.tasks]
+		tasks: [...state.tasks, task]
 	})),
 
-	on(updateOneTask, (state, action) => ({
+	on(updateOneTask, (state, { task }) => ({
 		...state,
-		tasks: state.tasks.map(t => t.created_at === action.task.created_at ? { ...t, ...action.task } : t)
+		tasks: state.tasks.map(t => t.created_at === task.created_at ? { ...t, ...task } : t)
 	})),
 
-	on(deleteOneTask, (state, action) => ({
+	on(deleteOneTask, (state, { id }) => ({
 		...state,
-		tasks: state.tasks.filter(t => t.created_by !== action.created_by)
+		tasks: state.tasks.filter(t => t.id !== id)
 	})),
 
-	on(changeStateTask, (state, action) => ({
+	on(changeStateTask, (state, { task, status }) => ({
 		...state,
 		tasks: state.tasks.map(t =>
-			t.created_at === action.task.created_at
-				? { ...t, status: action.status }
+			t.id === task.id
+				? { ...t, status: status }
 				: t
 		)
 	}))
